@@ -1,53 +1,49 @@
 class RailFenceCipher
-  def self.encode(text, rails)
-    return text if rails == 1
+  def self.encode(text, rails_count)
+    return text if rails_count == 1
 
-    railed_text(text, rails).join
+    fence         = Array.new(rails_count) { Array.new(text.length) }
+    text_on_rails = distribute_letters(text.chars, fence)
+
+    text_on_rails.map { |rail| rail.compact.join }.join
   end
 
-  def self.decode(text, rails)
-    return text if rails == 1
-
-    placeholder = railed_text(Array.new(text.length) { ' ' }.join, rails)
-
-    placeholder_idx = 0
-    char_idx = 0
-
-    text.each_char do |char|
-      if char_idx >= placeholder[placeholder_idx].length
-        placeholder_idx += 1
-        char_idx = 0
-      end
-
-      placeholder[placeholder_idx][char_idx] = char
-      char_idx += 1
+  def self.distribute_letters(letters, fence)
+    letters.each_with_index do |letter, idx|
+      rail = proper_rail(fence.length, idx)
+      fence[rail][idx] = letter
     end
 
-    p placeholder
-
-    placeholder.transpose.join
+    fence
   end
 
-  def self.railed_text(text, rails)
-    result = Array.new(rails) { [] }
-
-    text.chars.each_with_index do |char, idx|
-      xablau = (rails - 1) * 2
-      coiso  = case
-               when (idx % xablau).zero? then 0
-               else
-                 shazam  = idx
-                 shazam -= xablau while shazam >= rails
-                 shazam.abs
-               end
-
-      result[coiso] << char
+  def self.proper_rail(rails_count, iteration)
+    # Here we get the mirrored index, so for a fence with 3 rails
+    # we'll end up with
+    #
+    # [0, nil, nil, nil, 0]
+    # [0,  1,  nil,  1,  0]
+    # [0,  1,   2 ,  1,  0]
+    #
+    xablau = Array.new(2 * rails_count - 1)
+    rails_count.times do |idx|
+      xablau[idx] = idx
+      xablau[-1 - idx] = idx
     end
 
-    result
-  end
+    # Now we remove the last item of the array, since it will be
+    # the beginning of the next cycle.
+    #
+    # So, for the fence described above, we go from
+    #
+    # [0, 1, 2, 1, 0]
+    #
+    # to
+    #
+    # [0, 1, 2, 1]
+    #
+    xablau.pop
 
-  def self.index_for(idx)
-    idx % rails
+    xablau[iteration % xablau.length]
   end
 end
