@@ -52,6 +52,12 @@ class RailFenceCipherTest < Minitest::Test
                  RailFenceCipher.decode('XXXXXXXXXOOOOOOOOO', 2)
   end
 
+  def test_decode_with_two_rails_again
+    # skip
+    assert_equal 'WEARETHECHAMPIONS',
+                 RailFenceCipher.decode('WECPSERTEHMINAHAO', 3)
+  end
+
   def test_decode_with_three_rails
     # skip
     assert_equal 'THEDEVILISINTHEDETAILS',
