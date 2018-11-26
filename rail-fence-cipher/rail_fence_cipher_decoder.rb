@@ -1,10 +1,18 @@
-class RailFenceCipherEncoder # :nodoc:
+require_relative './array_refinements'
+
+class RailFenceCipherDecoder # :nodoc:
+  using ArrayRefinements
+
   def initialize(rails_count)
     @rails_count = rails_count
   end
 
-  def encode(text)
-    text_on_rails(text).map { |rail| rail.compact.join }.join
+  def decode(text)
+    fence     = text_on_rails(text)
+    base_rail = fence.first
+    fence.each { |rail| base_rail.merge(rail) }
+
+    base_rail.join
   end
 
   private
@@ -12,21 +20,25 @@ class RailFenceCipherEncoder # :nodoc:
   attr_reader :rails_count
 
   def text_on_rails(text)
-    fence = Array.new(rails_count) { Array.new(text.length) }
+    fence      = Array.new(rails_count) { [] }
+    text_chars = text.chars
 
-    text.chars.each_with_index do |letter, idx|
-      rail             = rail_for(idx)
-      fence[rail][idx] = letter
+    fence.each_with_index do |rail, rail_idx|
+      loop do
+        rail_schema(rails_count).each do |schema_position|
+          rail << (schema_position == rail_idx ? text_chars.shift : nil)
+
+          break if text_chars.empty? || rail.length == text.length
+        end
+
+        break if text_chars.empty? || rail.length == text.length
+      end
     end
 
     fence
   end
 
-  def rail_for(iteration)
-    rail_schema[iteration % rail_schema.length]
-  end
-
-  def rail_schema
+  def rail_schema(rails_count)
     @rail_schema ||= Array.new(2 * rails_count - 1).tap do |rail_schema|
       # Here we'll get the mirrored index, so for
       # a fence with 3 rails we'll end up with
