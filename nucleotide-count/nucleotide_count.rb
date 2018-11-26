@@ -11,6 +11,12 @@ class Nucleotide # :nodoc:
     dna.chars.count { |char| char.eql?(nucleotide) }
   end
 
+  def histogram
+    {}.tap do |result|
+      NUCLEOTIDES.each { |nucleotide| result[nucleotide] ||= count(nucleotide) }
+    end
+  end
+
   private
 
   attr_reader :dna
