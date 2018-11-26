@@ -4,6 +4,8 @@ class Nucleotide # :nodoc:
   class << self; alias from_dna new; end
 
   def initialize(dna)
+    raise ArgumentError if invalid_strand?(dna)
+
     @dna = dna
   end
 
@@ -20,4 +22,8 @@ class Nucleotide # :nodoc:
   private
 
   attr_reader :dna
+
+  def invalid_strand?(dna)
+    dna.chars.any? { |char| !NUCLEOTIDES.include?(char) }
+  end
 end
