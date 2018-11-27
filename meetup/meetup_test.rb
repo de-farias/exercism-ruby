@@ -130,85 +130,85 @@ class MeetupTest < Minitest::Test
   end
 
   def test_first_monday_of_march_2013
-    skip
+    # skip
     meetup = Meetup.new(3, 2013).day(:monday, :first)
     assert_equal Date.parse("2013-03-04"), meetup
   end
 
   def test_first_monday_of_april_2013
-    skip
+    # skip
     meetup = Meetup.new(4, 2013).day(:monday, :first)
     assert_equal Date.parse("2013-04-01"), meetup
   end
 
   def test_first_tuesday_of_may_2013
-    skip
+    # skip
     meetup = Meetup.new(5, 2013).day(:tuesday, :first)
     assert_equal Date.parse("2013-05-07"), meetup
   end
 
   def test_first_tuesday_of_june_2013
-    skip
+    # skip
     meetup = Meetup.new(6, 2013).day(:tuesday, :first)
     assert_equal Date.parse("2013-06-04"), meetup
   end
 
   def test_first_wednesday_of_july_2013
-    skip
+    # skip
     meetup = Meetup.new(7, 2013).day(:wednesday, :first)
     assert_equal Date.parse("2013-07-03"), meetup
   end
 
   def test_first_wednesday_of_august_2013
-    skip
+    # skip
     meetup = Meetup.new(8, 2013).day(:wednesday, :first)
     assert_equal Date.parse("2013-08-07"), meetup
   end
 
   def test_first_thursday_of_september_2013
-    skip
+    # skip
     meetup = Meetup.new(9, 2013).day(:thursday, :first)
     assert_equal Date.parse("2013-09-05"), meetup
   end
 
   def test_first_thursday_of_october_2013
-    skip
+    # skip
     meetup = Meetup.new(10, 2013).day(:thursday, :first)
     assert_equal Date.parse("2013-10-03"), meetup
   end
 
   def test_first_friday_of_november_2013
-    skip
+    # skip
     meetup = Meetup.new(11, 2013).day(:friday, :first)
     assert_equal Date.parse("2013-11-01"), meetup
   end
 
   def test_first_friday_of_december_2013
-    skip
+    # skip
     meetup = Meetup.new(12, 2013).day(:friday, :first)
     assert_equal Date.parse("2013-12-06"), meetup
   end
 
   def test_first_saturday_of_january_2013
-    skip
+    # skip
     meetup = Meetup.new(1, 2013).day(:saturday, :first)
     assert_equal Date.parse("2013-01-05"), meetup
   end
 
   def test_first_saturday_of_february_2013
-    skip
+    # skip
     meetup = Meetup.new(2, 2013).day(:saturday, :first)
     assert_equal Date.parse("2013-02-02"), meetup
   end
 
   def test_first_sunday_of_march_2013
-    skip
+    # skip
     meetup = Meetup.new(3, 2013).day(:sunday, :first)
     assert_equal Date.parse("2013-03-03"), meetup
   end
 
   def test_first_sunday_of_april_2013
-    skip
+    # skip
     meetup = Meetup.new(4, 2013).day(:sunday, :first)
     assert_equal Date.parse("2013-04-07"), meetup
   end
@@ -568,7 +568,7 @@ class MeetupTest < Minitest::Test
   end
 
   def test_first_friday_of_december_2012
-    skip
+    # skip
     meetup = Meetup.new(12, 2012).day(:friday, :first)
     assert_equal Date.parse("2012-12-07"), meetup
   end

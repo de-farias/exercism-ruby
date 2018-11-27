@@ -10,6 +10,8 @@ class Meetup
     case descriptor
     when :teenth
       date_range(13, 19).find { |date| date.send("#{weekday}?") }
+    when :first
+      date_range(1).find { |date| date.send("#{weekday}?") }
     end
   end
 
@@ -17,7 +19,10 @@ class Meetup
 
   attr_reader :year, :month
 
-  def date_range(first_day, last_day)
-    (Date.new(year, month, first_day)..Date.new(year, month, last_day)).to_a
+  def date_range(first_day, last_day = -1)
+    first_date = Date.new(year, month, first_day)
+    last_date  = Date.new(year, month, last_day)
+
+    (first_date..last_date).to_a
   end
 end
