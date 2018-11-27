@@ -8,18 +8,12 @@ class Meetup
 
   def day(weekday, descriptor)
     case descriptor
-    when :teenth
-      date_range(13, 19).find { |date| date.send("#{weekday}?") }
-    when :first
-      date_range(1).find { |date| date.send("#{weekday}?") }
-    when :second
-      date_range(1).select { |date| date.send("#{weekday}?") }[1]
-    when :third
-      date_range(1).select { |date| date.send("#{weekday}?") }[2]
-    when :fourth
-      date_range(1).select { |date| date.send("#{weekday}?") }[3]
-    when :last
-      date_range(1).select { |date| date.send("#{weekday}?") }.last
+    when :teenth then filter(date_range(13, 19), weekday)[0]
+    when :first  then filter(date_range, weekday)[0]
+    when :second then filter(date_range, weekday)[1]
+    when :third  then filter(date_range, weekday)[2]
+    when :fourth then filter(date_range, weekday)[3]
+    else              filter(date_range, weekday)[-1]
     end
   end
 
@@ -27,10 +21,11 @@ class Meetup
 
   attr_reader :year, :month
 
-  def date_range(first_day, last_day = -1)
-    first_date = Date.new(year, month, first_day)
-    last_date  = Date.new(year, month, last_day)
+  def filter(range, weekday)
+    range.select { |date| date.send("#{weekday}?") }
+  end
 
-    (first_date..last_date).to_a
+  def date_range(first_day = 1, last_day = -1)
+    (Date.new(year, month, first_day)..Date.new(year, month, last_day)).to_a
   end
 end
