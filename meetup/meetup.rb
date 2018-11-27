@@ -12,6 +12,8 @@ class Meetup
       date_range(13, 19).find { |date| date.send("#{weekday}?") }
     when :first
       date_range(1).find { |date| date.send("#{weekday}?") }
+    when :second
+      date_range(1).select { |date| date.send("#{weekday}?") }[1]
     end
   end
 
