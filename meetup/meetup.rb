@@ -18,6 +18,8 @@ class Meetup
       date_range(1).select { |date| date.send("#{weekday}?") }[2]
     when :fourth
       date_range(1).select { |date| date.send("#{weekday}?") }[3]
+    when :last
+      date_range(1).select { |date| date.send("#{weekday}?") }.last
     end
   end
 
