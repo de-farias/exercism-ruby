@@ -33,14 +33,10 @@ class Matrix
   end
 
   def largest_in_row?(row, idx)
-    row.each_with_index.all? do |item, row_idx|
-      idx == row_idx || row[idx] >= item
-    end
+    row[idx] == row.max
   end
 
   def smallest_in_column?(column, idx)
-    column.each_with_index.all? do |item, column_idx|
-      idx == column_idx || column[idx] <= item
-    end
+    column[idx] == column.min
   end
 end
