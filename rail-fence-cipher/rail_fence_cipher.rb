@@ -1,6 +1,4 @@
 class RailFenceCipher # :nodoc:
-  VERSION = 1
-
   def self.encode(message, rail_count)
     lookup = generate_lookup(message.length, rail_count)
 
