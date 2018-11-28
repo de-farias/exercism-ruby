@@ -4,8 +4,9 @@ class Matrix
   attr_reader :rows
 
   def initialize(schema)
-    @rows = schema.split("\n")
-                  .map { |row| row.split(' ').map(&:to_i) }
+    to_integer_list = ->(list) { list.split(' ').map(&:to_i) }
+
+    @rows = schema.split("\n").map(&to_integer_list)
   end
 
   def columns
