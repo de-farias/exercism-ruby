@@ -1,5 +1,3 @@
-require 'colorize'
-
 class Matrix
   attr_reader :rows
 
