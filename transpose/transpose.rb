@@ -8,7 +8,7 @@ class Transpose # :nodoc:
 
   def self.normalized_text_rows(text)
     splitted_text = text.split("\n").map(&:chars)
-    largest = splitted_text.max_by(&:length).length
+    largest       = splitted_text.map(&:length).max
 
     splitted_text.map do |row|
       row.fill(' ', row.length, largest - row.length) if row.length < largest
