@@ -1,15 +1,12 @@
 class RotationalCipher # :nodoc:
-  ALPHABET = ('a'..'z')
+  LOWER = ('a'..'z').to_a
+  UPPER = ('A'..'Z').to_a
+  ALPHA = (LOWER + UPPER).join
 
   def self.rotate(letters, rotations)
-    rotated_letters = letters.chars.map do |letter|
-      if ALPHABET.include?(letter.downcase)
-        rotations.times { letter = letter.next[0] }
-      end
-
-      letter
-    end
-
-    rotated_letters.join
+    letters.tr(
+      ALPHA,
+      (LOWER.rotate(rotations) + UPPER.rotate(rotations)).join
+    )
   end
 end
