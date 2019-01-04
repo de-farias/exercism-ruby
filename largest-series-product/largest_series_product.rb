@@ -19,10 +19,8 @@ class Series # :nodoc:
   attr_reader :chars
 
   def validate_input!(sequence_length)
-    invalid_input = sequence_length > chars.length ||
-                    sequence_length < 0 ||
-                    chars.any? { |d| d =~ /\D/ }
-
-    raise ArgumentError if invalid_input
+    raise ArgumentError if sequence_length > chars.length ||
+                           sequence_length < 0 ||
+                           chars.any? { |d| d =~ /\D/ }
   end
 end
