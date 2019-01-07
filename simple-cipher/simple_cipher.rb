@@ -4,7 +4,7 @@ class Cipher # :nodoc:
   attr_reader :key
 
   def initialize(key = random_key)
-    validate_key!(key) unless key.nil?
+    validate_key!(key)
 
     @key = key
   end
@@ -20,8 +20,8 @@ class Cipher # :nodoc:
   private
 
   def transform_text(text, reverse: false)
-    transformed = text.chars.each_with_index.map do |char, index|
-      rotations  = ALPHABET.index(key[index])
+    transformed = text.chars.each_with_index.map do |char, idx|
+      rotations  = ALPHABET.index(key[idx])
       rotations *= -1 if reverse
 
       char.tr(ALPHABET.join, ALPHABET.rotate(rotations).join)
